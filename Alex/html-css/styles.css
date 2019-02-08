@@ -1,0 +1,116 @@
+*{
+    transition: 0.35s ease-in;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav{
+    background: #333;
+    margin-top: -20px;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: fixed;
+    width: 100%;
+}
+
+#nav .menu, #nav button{
+    float: right;
+}
+
+#nav button{
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+#nav .menu li{
+    display: inline-block;
+    margin-left: 10px;
+    color:#ccc;
+    font-weight: 100;
+    letter-spacing: 0.6px;
+    display:none;
+}
+
+@media(min-width: 600px){
+    #nav button{
+        display: none;
+    }
+    
+    #nav .menu li{
+        display: initial;
+    }
+}
+
+#header{
+    text-align: center;
+    background: url('https://images.unsplash.com/photo-1548882268-c8bb49ffe2b6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=60');
+    background-position: center center;
+    margin:0px;
+    height: 100vh;
+    position: relative;
+}
+#header .headline{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    color: #fff;
+    transform: translate(-50%);
+}
+
+/* #portfolio figure{
+    height: 100vh;
+    width: 100vw;
+    margin: 10px;
+    background: url('https://images.unsplash.com/photo-1548914761-4dce623ce25b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=60');
+    background-position: center;
+} */
+
+#portfolio{
+    padding: 10px;
+}
+#portfolio figure{
+    background: url('https://images.unsplash.com/photo-1548914761-4dce623ce25b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=60');
+    background-position: center;
+    background-attachment: cover; 
+    min-height: 200px;
+    position: relative;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+#portfolio figure figcaption{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    z-index: 1000;
+}
+
+@media(min-width: 600px){
+    .container{
+        display: flex;
+        justify-content: space-between;
+    }
+    .container figure{
+        width: 30%;
+    }
+}
+
+figure:hover .overlay{ 
+    position: absolute;
+    background: rgba(0,0,150,0.3);
+    left: 0;
+    right:0;
+    bottom:0;
+    top:0;
+    
+}
+
+figure:hover figcaption{
+    /*position: relative !important; */
+    bottom:20px !important;
+}
