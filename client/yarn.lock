@@ -7930,7 +7930,11 @@ react-dev-utils@^7.0.1:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
+<<<<<<< HEAD
 react-dom@^16.8.1:
+=======
+react-dom@^16.8.0:
+>>>>>>> Martyn
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.1.tgz#ec860f98853d09d39bafd3a6f1e12389d283dbb4"
   integrity sha512-N74IZUrPt6UiDjXaO7UbDDFXeUXnVhZzeRLy/6iqqN1ipfjrhR60Bp5NuBK+rv3GMdqdIuwIl22u1SYwf330bg==
@@ -8013,6 +8017,7 @@ react-scripts@2.1.3:
   optionalDependencies:
     fsevents "1.2.4"
 
+<<<<<<< HEAD
 react-transition-group@^2.3.1:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.5.3.tgz#26de363cab19e5c88ae5dbae105c706cf953bb92"
@@ -8024,6 +8029,9 @@ react-transition-group@^2.3.1:
     react-lifecycles-compat "^3.0.4"
 
 react@^16.8.1:
+=======
+react@^16.8.0:
+>>>>>>> Martyn
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.1.tgz#ae11831f6cb2a05d58603a976afc8a558e852c4a"
   integrity sha512-wLw5CFGPdo7p/AgteFz7GblI2JPOos0+biSoxf1FPsGxWQZdN/pj6oToJs1crn61DL3Ln7mN86uZ4j74p31ELQ==
@@ -8032,6 +8040,7 @@ react@^16.8.1:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.1"
+<<<<<<< HEAD
 
 reactstrap@^7.1.0:
   version "7.1.0"
@@ -8047,6 +8056,8 @@ reactstrap@^7.1.0:
     react-lifecycles-compat "^3.0.4"
     react-popper "^0.10.4"
     react-transition-group "^2.3.1"
+=======
+>>>>>>> Martyn
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
