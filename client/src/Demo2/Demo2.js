@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import Box from './box'
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 class Demo2 extends Component {
@@ -39,8 +40,12 @@ class Demo2 extends Component {
 
 
   render() {
+    const box = this.state.boxes.map(({name,width,color,textColor},indx)=>{
+      return <Box name={name} width={width} color={color} textColor={textColor} key={indx}></Box>
+    })
     return (
-      <Form>
+      <Fragment>
+        <Form>
         <FormGroup>
           <Label>Box Name</Label>
           <Input onChange={this.handleInput} type="text" name="name" placeholder="Please enter some text" />
@@ -73,6 +78,12 @@ class Demo2 extends Component {
             Add Box
         </Button>
       </Form>
+      <div className="container">
+        <div className="row">
+          {box}
+        </div>
+      </div>
+      </Fragment>
     );
   }
 }
