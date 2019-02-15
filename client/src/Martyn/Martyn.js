@@ -8,7 +8,7 @@ class Martyn extends Component {
     super();
 
     this.state = {
-      name: 'Alex'
+      name: 'Alex',
     }
   }
 

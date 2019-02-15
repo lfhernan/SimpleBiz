@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
 const styles={
-    backgroundColor: 'red',
+    backgroundColor: '#000',
     border: '1px solid #FFF',
-    height: '100'
+    //to make boxes display properly
+    marginTop: '1px',
+    height: '400px'
 }
 
 
 class Box extends Component {
   render() {
     return (
-      <div style={{...styles, backgroundColor: this.props.backgroundColor, color: this.props.color}} className={'col-md-${this.props.width'}>
+      <div style={{...styles, backgroundColor: this.props.color, color: this.props.textColor}} className={`col-md-${this.props.width}`}>
         {this.props.name}
       </div>
     );
