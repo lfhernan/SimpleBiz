@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import Form2 from './Jessica/Form2'
 
@@ -15,8 +16,24 @@ class App extends Component {
         <Form2/>
         </div>
 
+=======
+import React,{Component,Fragment} from 'react';
+import Test from './test'
+import NavBar from './components/NavBar/NavBar'
+
+class App extends Component
+{
+  render()
+  {
+    return (
+      <Fragment>
+        <NavBar />
+        <h1>Welcome</h1>
+        <Test />
+      </Fragment>
+>>>>>>> master
     );
   }
 }
 
-export default App;
+export default App
