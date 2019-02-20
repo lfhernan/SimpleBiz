@@ -7,8 +7,6 @@ class DashBoard extends Component{
         return (
             <div>
                 <Essential />
-                <Essential />
-                <Essential />
             </div>
         )
     }
