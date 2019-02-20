@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-//import Demo from './Demo/Demo'
-import Demo2 from './Demo2/Demo2'
+import React,{Component,Fragment} from 'react';
+import Test from './test'
+import NavBar from './components/NavBar/NavBar'
 
-const styles = {
-  margin: '0 20px',
-  marginTop: '10px'
-}
-
-class App extends Component {
-  render() {
+class App extends Component
+{
+  render()
+  {
     return (
-      <div style={styles}>
-        <Demo2/>
-      </div>
+      <Fragment>
+        <NavBar />
+        <h1>Welcome</h1>
+        <Test />
+      </Fragment>
     );
   }
 }
 
-export default App;
-
+export default App
