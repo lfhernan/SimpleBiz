@@ -9,14 +9,13 @@ import {ApolloProvider} from "react-apollo";
 import {createHttpLink} from 'apollo-link-http';
 import {setContext} from 'apollo-link-context';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import defaults from './resolvers/defaults'
+import {defaults} from './Store/defaults'
 import { withClientState } from 'apollo-link-state';
+import { ApolloLink } from 'apollo-link'
+import {resolvers} from './Store/resolvers'
+
 const httpLink=createHttpLink({
     uri: 'http://localhost:4000/graphql',
-    // credentials: 'include',
-    // fetchOptions: {
-    // mode: 'no-cors'
-    // }
 });
 
 const authLink=setContext((_,{headers}) =>
@@ -32,17 +31,21 @@ const authLink=setContext((_,{headers}) =>
     }
 });
 
+const cache =  new InMemoryCache()
+
+const stateLink = withClientState({
+    cache,
+    defaults,
+    resolvers
+})
 
 
 const client=new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache : new InMemoryCache(),
-    clientState:{
-        defaults: {
-            modalOpen: false
-         },
-        resolvers: {}
-    }
+    link: ApolloLink.from([
+        stateLink,
+        authLink.concat(httpLink)
+    ]),
+    cache
 });
 
 ReactDOM.render(
