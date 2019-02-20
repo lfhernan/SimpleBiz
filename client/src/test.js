@@ -2,6 +2,7 @@ import React,{Component,Fragment} from 'react';
 import {gql} from 'apollo-boost'
 import {graphql,compose} from 'react-apollo'
 import {ApolloConsumer} from 'react-apollo'
+import logIn from './Store/Mutations/logIn'
 
 
 
@@ -30,7 +31,10 @@ class Test extends Component
         //if(!error){
             const token=await this.props.getToken()
             localStorage.setItem('token',token.data.login)
-            myClient.resetStore()
+            const token2 = await localStorage.getItem('token')
+            //console.log(token2)
+            await myClient.resetStore()
+            this.props.logIn(true)
        // }
 
         
@@ -69,5 +73,6 @@ class Test extends Component
 
 export default compose(
     graphql(getToken,{name: 'getToken'}),
-    graphql(getSecret,{name: 'getSecret'})
+    graphql(getSecret,{name: 'getSecret'}),
+    graphql(logIn,{name: "logIn"})
 )(Test)
