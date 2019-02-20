@@ -29,7 +29,7 @@ class NavBar extends Component {
   }
   
   render() {
-    //console.log(props)
+    console.log(this.props)
     const {location: {pathname}} = this.props
     const {status} = this.props
     
