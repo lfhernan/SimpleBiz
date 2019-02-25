@@ -1,10 +1,14 @@
 import React,{Component} from 'react'
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap'
+import BenefitView from '../components/BenefitView/BenefitView'
 
 class Home extends Component{
     render(){
         return (
-            <div>Home</div>
+            <Container>
+                <div>Home</div>
+                <BenefitView />
+            </Container>
         )
     }
 }
