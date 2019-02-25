@@ -1,17 +1,35 @@
 import React,{Component} from 'react'
-import Employee from './Employee'
+import { ListGroup} from 'reactstrap';
+import Employee from './Employee';
 
-class EmployeesList extends Component{
-    render(){
+class EmployeesList extends Component {
+    render() {
         return (
-            <div>
+            <ListGroup>
                 List of Employees
-                <Employee />
-                <Employee />
-                <Employee />
-            </div>
-        )
+                <Employee/>
+            </ListGroup>
+        );
     }
 }
 
 export default EmployeesList
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

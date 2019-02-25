@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
+import { Col, ListGroupItem } from 'reactstrap';
 
 class Employee extends Component{
     render(){
         return (
-            <div>
-                Single Employee
-            </div>
+            <ListGroupItem>
+                Single Employee 
+            </ListGroupItem>
         )
     }
 }
