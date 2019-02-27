@@ -7,12 +7,6 @@ class Employee extends Component{
     
     constructor(props) {
         super(props);
-    
-        this.state = {
-            name: '',
-            type: '',
-            imageurl: ''
-        };
     }
      
     render(){
@@ -28,17 +22,17 @@ class Employee extends Component{
             <ListGroupItem>
                 <Row>
                     <Col md="3">
-                        <img src={this.state.imageurl}
+                        <img src={this.props.imageurl}
                             alt="employee image" style={image}
                         />   
                         
                         <div>
-                            <p>Name:
-                                {this.state.name}
+                            <p>Name: 
+                                {this.props.name}
                             </p>
 
                             <p>Position:
-                                {this.state.type}    
+                                {this.props.type}    
                             </p>    
                         </div>
                     </Col> 
