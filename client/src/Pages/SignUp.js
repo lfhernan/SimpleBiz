@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
-import { Col, Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
+import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 class SignUp extends Component{
+    
     constructor(props){
         super(props);
         this.state = {
@@ -25,7 +26,7 @@ class SignUp extends Component{
     }
 
     onSubmit = () => {
-        if (this.isEmpty() == true){
+        if (this.isEmpty() === true){
             return console.log("Submitted");
         }
         else{
