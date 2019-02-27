@@ -1,6 +1,6 @@
 import React,{Component, Fragment} from 'react'
 import Request from './Request'
-import CompanyInfo from './Companyinfo'
+//import CompanyInfo from './Companyinfo'
 import { Container, Row } from 'reactstrap';
 
 class Essential extends Component{
@@ -8,7 +8,7 @@ class Essential extends Component{
         return (
             <Container>
                <Row>
-               <CompanyInfo />
+               {/* <CompanyInfo /> */}
                 <Request />
                </Row>
             </Container>
