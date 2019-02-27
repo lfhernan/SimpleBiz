@@ -1,7 +1,7 @@
-import React from 'react';
+import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-class SignUpForm extends React.Component {
+class SignUpForm extends Component {
 
     constructor(props) {
         super(props)

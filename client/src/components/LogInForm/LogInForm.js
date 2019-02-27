@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-
 class LogInForm extends Component{
     
     constructor(props){
