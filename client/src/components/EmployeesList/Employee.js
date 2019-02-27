@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import { Col, Row, ListGroupItem } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 class Employee extends Component{
     
@@ -7,9 +9,9 @@ class Employee extends Component{
         super(props);
     
         this.state = {
-            employeeId: '',
             name: '',
-            position: ''
+            type: '',
+            imageurl: ''
         };
     }
      
@@ -26,13 +28,18 @@ class Employee extends Component{
             <ListGroupItem>
                 <Row>
                     <Col md="3">
-                        <img src="https://images.unsplash.com/photo-1518548183878-5e1fcea68bb9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                        <img src={this.state.imageurl}
                             alt="employee image" style={image}
                         />   
                         
                         <div>
-                            <p>Name</p>
-                            <p>Position</p>    
+                            <p>Name:
+                                {this.state.name}
+                            </p>
+
+                            <p>Position:
+                                {this.state.type}    
+                            </p>    
                         </div>
                     </Col> 
 
@@ -41,7 +48,7 @@ class Employee extends Component{
 
                     <Col md="3">
                         <div>
-                            Modal   | Edit  | Remove
+                        <FontAwesomeIcon icon="calendar-alt" />    | <FontAwesomeIcon icon="edit" />  | <FontAwesomeIcon icon="user-times" />
                         </div>    
                     </Col>
                 </Row>

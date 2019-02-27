@@ -10,7 +10,14 @@ import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import DashBoard from './Pages/DashBoard'
 import Error from './Pages/Error'
- 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faIgloo, faEdit, faUserTimes, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faIgloo)
+library.add(faEdit)
+library.add(faUserTimes) 
+library.add(faCalendarAlt)
+
 class App extends Component
 {
   //Check if use is logged in when component mounts
