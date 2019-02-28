@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { ListGroup} from 'reactstrap';
+import {ListGroup, Container} from 'reactstrap';
 import Employee from './Employee';
 
 class EmployeesList extends Component {
@@ -19,10 +19,12 @@ class EmployeesList extends Component {
     
     render() {
         return (
-            <ListGroup>
-                List of Employees
-                {this.state.employees.map(employee => <Employee name={employee.name} type={employee.type} imageurl={employee.imageurl}/>)}
-            </ListGroup>
+            <Container>
+                <ListGroup>
+                    List of Employees
+                    {this.state.employees.map(employee => <Employee name={employee.name} type={employee.type} imageurl={employee.imageurl}/>)}
+                </ListGroup>
+            </Container>
         );
     }
 }

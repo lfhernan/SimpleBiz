@@ -12,7 +12,7 @@ class Employee extends Component{
     render(){
 
         const image = {
-            width: '150px',
+            width: '130px',
             borderRadius: '50%',
             float: 'left',
             margin: '10px'
@@ -21,24 +21,24 @@ class Employee extends Component{
         return (
             <ListGroupItem>
                 <Row>
-                    <Col md="3">
+                    <Col md="9">
                         <img src={this.props.imageurl}
                             alt="employee image" style={image}
                         />   
                         
                         <div>
-                            <p>Name: 
-                                {this.props.name}
+                            <p>
+                                Name: {this.props.name}
                             </p>
 
-                            <p>Position:
-                                {this.props.type}    
+                            <p>
+                                Position: {this.props.type}    
                             </p>    
                         </div>
                     </Col> 
 
                     {/* Space between the employee info and toolbar */}
-                    <Col md="6" />
+                    {/* <Col md="6" /> */}
 
                     <Col md="3">
                         <div>
