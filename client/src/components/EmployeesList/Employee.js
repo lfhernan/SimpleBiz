@@ -14,18 +14,21 @@ class Employee extends Component{
         const image = {
             width: '130px',
             borderRadius: '50%',
-            float: 'left',
             margin: '10px'
         }
 
         return (
             <ListGroupItem>
                 <Row>
-                    <Col md="9">
+                    <Col md="3" className="text-center">
+                        <div>
                         <img src={this.props.imageurl}
                             alt="employee image" style={image}
                         />   
-                        
+                        </div>
+                    </Col> 
+
+                    <Col md="6" className="align-self-center text-center text-md-left">
                         <div>
                             <p>
                                 Name: {this.props.name}
@@ -35,14 +38,11 @@ class Employee extends Component{
                                 Position: {this.props.type}    
                             </p>    
                         </div>
-                    </Col> 
+                    </Col>
 
-                    {/* Space between the employee info and toolbar */}
-                    {/* <Col md="6" /> */}
-
-                    <Col md="3">
+                    <Col md="3" className="align-self-center text-center">
                         <div>
-                        <FontAwesomeIcon icon="calendar-alt" />    | <FontAwesomeIcon icon="edit" />  | <FontAwesomeIcon icon="user-times" />
+                            <FontAwesomeIcon icon="calendar-alt" />    | <FontAwesomeIcon icon="edit" />  | <FontAwesomeIcon icon="user-times" />
                         </div>    
                     </Col>
                 </Row>
