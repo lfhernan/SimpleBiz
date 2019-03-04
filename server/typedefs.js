@@ -20,6 +20,7 @@ export default gql`
     secret: String
     getUser(id: String!): User
     getCompany(id: String): Company
+    getEmployees:User
   }
   type Mutation {
     register(
@@ -36,5 +37,6 @@ export default gql`
     email: String!,
     industry: String!,
     password: String!): Company
+    loginCompany(email: String!, password: String!):String!
   }
 `;

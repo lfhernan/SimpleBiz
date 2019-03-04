@@ -9,6 +9,10 @@ export default mongoose.model('User',{
         type: String,
         required: true
     },
+    imageurl:{
+        type:String,
+        default: "https://s3.amazonaws.com/vcimages/140914283510706-disruptive-employee.jpg"
+    },
     password: {
         type: String,
         required: true
@@ -21,4 +25,7 @@ export default mongoose.model('User',{
         type: String,
         required: true
     },
+    scheduleId: {
+        type: String,
+    }
 })

@@ -1,6 +1,7 @@
 import {gql} from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import jwtDecode from 'jwt-decode'
 
 // Provide resolver functions for your schema fields
 export default {
@@ -12,13 +13,24 @@ export default {
             }
             return 'I like turtles'
         },
+        getEmployees: (_,args,{user}) =>
+        {
+            if(!user) {
+                throw new Error('You must be logged in to see secret')
+            }
+            return 'I like turtles'
+        },
         getUser: (_,{id},{user,User}) =>
         {
             console.log(id)
             return User.findById(id)
         },
-        getCompany: (_, {id}, {Company}) =>
-        {
+        getCompany: (_, {id}, {Company,user}) =>
+        {   
+            if(!user) {
+                throw new Error('You must be logged in to see company info')
+            }
+
             return Company.findById(id)
         }
 
@@ -56,7 +68,40 @@ export default {
 
             return token
         },
-        createCompany: (_,args,{Company}) =>{
+        loginCompany: async (_,{email,password},{Company,SECRET}) =>
+        {
+            const company=await Company.findOne({email: email}).exec()
+
+            if(!company) {
+                throw new Error('no Company found')
+            }
+            
+
+            const valid=await bcrypt.compare(password,company.password)
+
+            console.log(valid)
+
+            if(!valid) {
+                throw new Error('wrong password')
+            }
+
+            const  token=jwt.sign(
+                {
+                    user: [ company.id,company.companyName,"AuthCompany" ]
+                },
+                SECRET,
+                {
+                    expiresIn: '2h'
+                })
+
+            return token
+            
+        },
+        createCompany:async (_,args,{Company}) =>{
+            const company=args
+
+            company.password=await bcrypt.hash(company.password,12)
+            
             return Company.create(args)
         }
     }
