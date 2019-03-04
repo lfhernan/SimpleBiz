@@ -13,13 +13,6 @@ export default {
             }
             return 'I like turtles'
         },
-        getEmployees: (_,args,{user}) =>
-        {
-            if(!user) {
-                throw new Error('You must be logged in to see secret')
-            }
-            return 'I like turtles'
-        },
         getUser: (_,{id},{user,User}) =>
         {
             console.log(id)
@@ -32,6 +25,14 @@ export default {
             }
 
             return Company.findById(id)
+        },
+        getEmployees(_,{companyId},{User,user}){
+
+            if(!user) {
+                throw new Error('You must be logged in to see company info')
+            }
+
+            return User.find({companyId: companyId})
         }
 
     },
@@ -68,7 +69,7 @@ export default {
 
             return token
         },
-        loginCompany: async (_,{email,password},{Company,SECRET}) =>
+        loginCompany: async (_,{email,password},{Company}) =>
         {
             const company=await Company.findOne({email: email}).exec()
 

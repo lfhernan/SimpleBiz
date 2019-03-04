@@ -6,8 +6,10 @@ export default gql`
     id: ID
     name: String!
     companyId: String!
+    imageurl: String
     username: String!
     type: String!
+    scheduleId: String
   }
   type Company {
     id: ID
@@ -20,7 +22,7 @@ export default gql`
     secret: String
     getUser(id: String!): User
     getCompany(id: String): Company
-    getEmployees:User
+    getEmployees(companyId: String!):[User]
   }
   type Mutation {
     register(
