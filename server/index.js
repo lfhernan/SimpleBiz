@@ -2,6 +2,7 @@ import express from 'express'
 import {ApolloServer} from 'apollo-server-express'
 import typeDefs from './typedefs'
 import resolvers from './resolvers'
+import Company from './models/Company'
 import User from './models/User'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
@@ -30,6 +31,7 @@ const server=new ApolloServer({
             req,
             res,
             User,
+            Company,
             SECRET,
             user: req.user
         }
