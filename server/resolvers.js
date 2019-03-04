@@ -17,6 +17,11 @@ export default {
             console.log(id)
             return User.findById(id)
         },
+        getCompany: (_, {id}, {Company}) =>
+        {
+            return Company.findById(id)
+        }
+
     },
     Mutation: {
         register: async (_,args,{User}) =>
@@ -50,6 +55,9 @@ export default {
                 })
 
             return token
+        },
+        createCompany: (_,args,{Company}) =>{
+            return Company.create(args)
         }
     }
 };
