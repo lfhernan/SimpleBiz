@@ -1,5 +1,8 @@
 import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import loginCompany from '../../Queries/LoginCompany'
+import {graphql,compose} from 'react-apollo'
+import {ApolloConsumer} from 'react-apollo'
 
 class LogInForm extends Component{
     
@@ -36,12 +39,30 @@ class LogInForm extends Component{
             }
         }
         if (!valid) {
-            console.log('error')
+            alert('error')
         }
         else {
-            console.log('submit form')
+            this.login()
         }
 
+    }
+
+    login= async ()=>{
+
+        const {username, password} = this.state
+        const token = await this.props.loginCompany({
+            variables:{
+                email: username,
+                password: password
+            }
+        })
+        
+        if(!token){
+            alert('error')
+        }
+        else{
+            localStorage.setItem('token',token)
+        }
     }
 
     render(){
@@ -69,4 +90,6 @@ class LogInForm extends Component{
     }
 }
 
-export default LogInForm
+export default compose(
+    graphql(loginCompany,{name: 'loginCompany'}),
+)(LogInForm)

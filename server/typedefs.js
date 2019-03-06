@@ -21,8 +21,8 @@ export default gql`
   type Query {
     secret: String
     getUser(id: String!): User
-    getCompany(id: String): Company
-    getEmployees(companyId: String!):[User]
+    getCompany: Company
+    getEmployees:[User]
   }
   type Mutation {
     register(

@@ -1,7 +1,6 @@
 import {gql} from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import jwtDecode from 'jwt-decode'
 
 // Provide resolver functions for your schema fields
 export default {
@@ -18,21 +17,22 @@ export default {
             console.log(id)
             return User.findById(id)
         },
-        getCompany: (_, {id}, {Company,user}) =>
+        getCompany: async (_, args, {Company,user}) =>
         {   
             if(!user) {
                 throw new Error('You must be logged in to see company info')
             }
+            
 
-            return Company.findById(id)
+            return Company.findById(user[0])
         },
-        getEmployees(_,{companyId},{User,user}){
+        getEmployees(_,args,{User,user}){
 
-            if(!user) {
-                throw new Error('You must be logged in to see company info')
+            if(!user || user[2] != 'AuthCompany') {
+                throw new Error('You must be a company in order to retrieve employee info')
             }
 
-            return User.find({companyId: companyId})
+            return User.find({companyId: user[0]})
         }
 
     },
@@ -69,7 +69,7 @@ export default {
 
             return token
         },
-        loginCompany: async (_,{email,password},{Company}) =>
+        loginCompany: async (_,{email,password},{Company,SECRET}) =>
         {
             const company=await Company.findOne({email: email}).exec()
 
