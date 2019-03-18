@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import { Col, Row, ListGroupItem, Button, Modal, ModalHeader, ModalBody, ModalFooter,
-        Form, FormGroup, Label, Input } from 'reactstrap';
+        Form, FormGroup, FormText, Label, Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -88,57 +88,30 @@ class Employee extends Component{
                                 <ModalHeader toggle={this.toggleEdit}>Edit Employee Information</ModalHeader>
                                 <ModalBody>
                                     <Form>
-                                        <Row form>
-                                        <Col md={6}>
-                                            <FormGroup>
-                                            <Label for="exampleEmail">Email</Label>
-                                            <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={6}>
-                                            <FormGroup>
-                                            <Label for="examplePassword">Password</Label>
-                                            <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-                                            </FormGroup>
-                                        </Col>
-                                        </Row>
                                         <FormGroup>
-                                        <Label for="exampleAddress">Address</Label>
-                                        <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St"/>
+                                        <Label for="employeeNameInput">Employee Name</Label>
+                                        <Input type="text" name="employeeNameInput" id="employeeNameInput" defaultValue={name}/>
                                         </FormGroup>
+                            
                                         <FormGroup>
-                                        <Label for="exampleAddress2">Address 2</Label>
-                                        <Input type="text" name="address2" id="exampleAddress2" placeholder="Apartment, studio, or floor"/>
+                                        <Label for="employeeTypeInput">Type</Label>
+                                        <Input type="select" name="employeeTypeInput" id="employeeTypeInput" defaultValue={type}>
+                                            <option>Employee</option>
+                                            <option>Manager</option>
+                                        </Input>
                                         </FormGroup>
-                                        <Row form>
-                                        <Col md={6}>
-                                            <FormGroup>
-                                            <Label for="exampleCity">City</Label>
-                                            <Input type="text" name="city" id="exampleCity"/>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={4}>
-                                            <FormGroup>
-                                            <Label for="exampleState">State</Label>
-                                            <Input type="text" name="state" id="exampleState"/>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={2}>
-                                            <FormGroup>
-                                            <Label for="exampleZip">Zip</Label>
-                                            <Input type="text" name="zip" id="exampleZip"/>
-                                            </FormGroup>  
-                                        </Col>
-                                        </Row>
-                                        <FormGroup check>
-                                        <Input type="checkbox" name="check" id="exampleCheck"/>
-                                        <Label for="exampleCheck" check>Check me out</Label>
+                                    
+                                        <FormGroup>
+                                        <Label for="employeeImageUrl">Image URL</Label>
+                                        <Input type="text" name="employeeImageUrl" id="employeeImageUrl" defaultValue={imageurl}/>
+                                        <FormText color="muted">
+                                        Link to this employee's photo
+                                        </FormText>
                                         </FormGroup>
-                                        <Button>Sign in</Button>
                                     </Form>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button color="primary" onClick={this.toggleEdit}>Submit</Button>
+                                    <Button color="primary" onClick={this.toggleEdit}>Edit</Button>
                                     <Button color="secondary" onClick={this.toggleEdit}>Close</Button>
                                 </ModalFooter>
                             </Modal>
