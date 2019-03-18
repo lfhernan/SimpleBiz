@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import loginCompany from '../../Queries/LoginCompany'
 import {graphql,compose} from 'react-apollo'
-import {ApolloConsumer} from 'react-apollo'
+//import {ApolloConsumer} from 'react-apollo'
 
 class LogInForm extends Component{
     
@@ -47,7 +47,7 @@ class LogInForm extends Component{
 
     }
 
-    login= async ()=>{
+    login = async () => {
 
         const {username, password} = this.state
         const token = await this.props.loginCompany({
@@ -61,7 +61,7 @@ class LogInForm extends Component{
             alert('error')
         }
         else{
-            localStorage.setItem('token',token)
+            localStorage.setItem('token', token)
         }
     }
 

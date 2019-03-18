@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import createCompany from '../../Queries/CreateCompany'
+import {graphql,compose} from 'react-apollo'
 
 class SignUpForm extends Component {
 
@@ -38,10 +40,32 @@ class SignUpForm extends Component {
             }
         }
         if (!valid) {
-            console.log('error')
+            alert('error')
         }
         else {
-            console.log('submit form')
+            this.create()
+        }
+
+    }
+
+    create = async () => {
+
+        const {companyName, owner, email, industry, password} = this.state
+        const token = await this.props.createCompany({
+            variables:{
+                companyName: companyName,
+                owner: owner,
+                email: email,
+                industry: industry,
+                password: password
+            }
+        })
+        
+        if(!token){
+            alert('error')
+        }
+        else{
+            localStorage.setItem('token', token)
         }
 
     }
@@ -85,4 +109,6 @@ class SignUpForm extends Component {
     }
 }
 
-export default SignUpForm
+export default compose(
+    graphql(createCompany,{name: 'createCompany'}),
+)(SignUpForm)
