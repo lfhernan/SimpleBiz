@@ -105,7 +105,7 @@ class Employee extends Component{
                                         <Label for="employeeImageUrl">Image URL</Label>
                                         <Input type="text" name="employeeImageUrl" id="employeeImageUrl" defaultValue={imageurl}/>
                                         <FormText color="muted">
-                                        Link to this employee's photo
+                                            Link to this employee's photo
                                         </FormText>
                                         </FormGroup>
                                     </Form>

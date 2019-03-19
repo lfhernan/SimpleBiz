@@ -1,10 +1,11 @@
 import React,{Component} from 'react'
-import { Container, Row, Col } from 'reactstrap';
+import SignUpForm  from '../components/SignUpForm/SignUpForm'
 
 class SignUp extends Component{
+
     render(){
         return (
-            <div>SignUp</div>
+            <SignUpForm />
         )
     }
 }
