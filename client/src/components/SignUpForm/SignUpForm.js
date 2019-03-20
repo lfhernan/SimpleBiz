@@ -77,31 +77,31 @@ class SignUpForm extends Component {
             <Form>
                 <FormGroup row>
                     <Label for="companyName" sm={2}>Company Name</Label>
-                    <Col sm={10}>
+                    <Col sm={6}>
                         <Input type="name" name="companyName" placeholder="Enter Company Name" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="owner" sm={2}>Name</Label>
-                    <Col sm={10}>
+                    <Col sm={6}>
                         <Input type="text" name="owner" placeholder="Enter Name" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="industry" sm={2}>Industry</Label>
-                    <Col>
+                    <Col sm={6}>
                         <Input type="text" name="industry" placeholder="Enter Industry Type" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
-                    <Col>
+                    <Col sm={6}>
                         <Input type="text" name="email" placeholder="Enter Email" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="password" sm={2}>Password</Label>
-                    <Col sm={10}>
+                    <Col sm={6}>
                         <Input type="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
                     </Col>
                 </FormGroup>
