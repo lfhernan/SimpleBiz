@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import createCompany from '../../Queries/CreateCompany'
 import {graphql,compose} from 'react-apollo'
+import {withRouter} from "react-router-dom"
 
 class SignUpForm extends Component {
 
@@ -66,6 +67,7 @@ class SignUpForm extends Component {
         }
         else{
             localStorage.setItem('token', token)
+            this.props.history.push("/SignIn")
         }
 
     }
@@ -109,6 +111,6 @@ class SignUpForm extends Component {
     }
 }
 
-export default compose(
+export default withRouter (compose(
     graphql(createCompany,{name: 'createCompany'}),
-)(SignUpForm)
+)(SignUpForm))

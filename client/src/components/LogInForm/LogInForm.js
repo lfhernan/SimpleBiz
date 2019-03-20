@@ -2,7 +2,11 @@ import React,{Component} from 'react'
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import loginCompany from '../../Queries/LoginCompany'
 import {graphql,compose} from 'react-apollo'
-//import {ApolloConsumer} from 'react-apollo'
+import {withRouter} from "react-router-dom"
+import logIn from '../../Store/Mutations/logIn'
+import {ApolloConsumer} from 'react-apollo'
+
+let myClient;
 
 class LogInForm extends Component{
     
@@ -62,26 +66,36 @@ class LogInForm extends Component{
         }
         else{
             localStorage.setItem('token', token)
+            this.props.logIn(true)
+            myClient.resetStore()
+            this.props.history.push("/Dashboard")
         }
     }
 
     render(){
         return (
             <Form>
+                <ApolloConsumer>{
+                    client =>
+                    {
+                        myClient=client
+                        return true
+                    }
+                }</ApolloConsumer>
                 <FormGroup row>
                     <Label for="username" sm={2}>Username</Label>
-                        <Col sm={10}>
+                        <Col sm={6}>
                             <Input onChange={this.handleChange} type="username" name="username" placeholder="Enter Username" />
                         </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="password" sm={2}>Password</Label>
-                        <Col sm={10}>
+                        <Col sm={6}>
                             <Input onChange={this.handleChange} type="password" name="password" placeholder="Enter Password" />
                         </Col>
                 </FormGroup>
                 <FormGroup check row>
-                    <Col sm={{ size: 10, offset: 2 }}>
+                    <Col sm={{ size: 6, offset: 2 }}>
                         <Button onClick={this.handleSubmit}>Submit</Button>
                     </Col>
                 </FormGroup>
@@ -90,6 +104,7 @@ class LogInForm extends Component{
     }
 }
 
-export default compose(
+export default withRouter (compose(
     graphql(loginCompany,{name: 'loginCompany'}),
-)(LogInForm)
+    graphql(logIn,{name: "logIn"})
+)(LogInForm))
