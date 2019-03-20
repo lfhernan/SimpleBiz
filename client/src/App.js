@@ -11,9 +11,8 @@ import SignUp from './Pages/SignUp'
 import DashBoard from './Pages/DashBoard'
 import Error from './Pages/Error'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faIgloo, faEdit, faUserTimes, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faUserTimes, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faIgloo)
 library.add(faEdit)
 library.add(faUserTimes) 
 library.add(faCalendarAlt)
