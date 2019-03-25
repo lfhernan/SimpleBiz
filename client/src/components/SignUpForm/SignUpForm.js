@@ -1,8 +1,17 @@
 import React,{Component} from 'react'
-import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col,Card,CardBody, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import createCompany from '../../Queries/CreateCompany'
 import {graphql,compose} from 'react-apollo'
 import {withRouter} from "react-router-dom"
+
+
+const styles = {
+    width: '350px',
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)",
+}
 
 class SignUpForm extends Component {
 
@@ -58,7 +67,7 @@ class SignUpForm extends Component {
                 owner: owner,
                 email: email,
                 industry: industry,
-                password: password
+                password: password,
             }
         })
         
@@ -74,39 +83,36 @@ class SignUpForm extends Component {
 
     render() {
         return (
-            <Form>
-                <FormGroup row>
-                    <Label for="companyName" sm={2}>Company Name</Label>
-                    <Col sm={6}>
-                        <Input type="name" name="companyName" placeholder="Enter Company Name" onChange={this.handleChange} />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="owner" sm={2}>Name</Label>
-                    <Col sm={6}>
-                        <Input type="text" name="owner" placeholder="Enter Name" onChange={this.handleChange} />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="industry" sm={2}>Industry</Label>
-                    <Col sm={6}>
-                        <Input type="text" name="industry" placeholder="Enter Industry Type" onChange={this.handleChange} />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="email" sm={2}>Email</Label>
-                    <Col sm={6}>
-                        <Input type="text" name="email" placeholder="Enter Email" onChange={this.handleChange} />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="password" sm={2}>Password</Label>
-                    <Col sm={6}>
-                        <Input type="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
-                    </Col>
-                </FormGroup>
-                <Button onClick={this.handleSubmit}>Submit</Button>
-            </Form>
+            <div style={styles}>
+                <Card>
+                <CardBody>
+                    <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Sign Up</h3>
+                    <Form>
+                    <FormGroup row>
+                            <Input type="name" name="companyName" placeholder="Enter Company Name" onChange={this.handleChange} />
+                    </FormGroup>
+                    <FormGroup row>
+                            <Input type="text" name="owner" placeholder="Enter Name" onChange={this.handleChange} />
+                    </FormGroup>
+                    <FormGroup row>
+                        
+                            <Input type="text" name="industry" placeholder="Enter Industry Type" onChange={this.handleChange} />
+
+                    </FormGroup>
+                    <FormGroup row>
+                        
+                            <Input type="text" name="email" placeholder="Enter Email" onChange={this.handleChange} />
+
+                    </FormGroup>
+                    <FormGroup row>
+                    
+                            <Input type="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
+                    </FormGroup>
+                    <Button onClick={this.handleSubmit}>Submit</Button>
+                </Form>
+                </CardBody>
+            </Card>
+            </div>
         );
     }
 }
