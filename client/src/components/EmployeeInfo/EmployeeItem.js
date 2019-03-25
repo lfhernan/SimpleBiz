@@ -1,11 +1,17 @@
 import React,{Component} from 'react'
 import { Col, Row, ListGroupItem, Button, Modal, ModalHeader, ModalBody, ModalFooter,
-        Form, FormGroup, FormText, Label, Input } from 'reactstrap';
+    Form, FormGroup, FormText, Label, Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-class Employee extends Component{
-    
+const image = {
+    width: '130px',
+    borderRadius: '50%',
+    margin: '10px'
+}
+
+class EmployeeItem extends Component{
+
     constructor(props) {
         super(props);
         this.state = {
@@ -36,16 +42,10 @@ class Employee extends Component{
           remove: !prevState.remove
         }));
     }
-        
+
     render(){
-
-        const image = {
-            width: '130px',
-            borderRadius: '50%',
-            margin: '10px'
-        }
-
-        const {name, type, imageurl} = this.props 
+        
+        const {name, type, imageurl} = this.props.info
 
         return (
             <ListGroupItem>
@@ -129,9 +129,23 @@ class Employee extends Component{
                             </Modal>
                     </Col>
                 </Row>
+                {/* <div style={{
+                    display: 'inline-block',
+                    float: 'left',
+                    textAlign: 'center',
+                    width: 45
+                }}>
+                    <img 
+                    style={{borderRadius: '100'}}
+                    src={this.props.info.imageurl} height="42" width="42"
+                    alt="employee"
+                    />
+                    <br />
+                    {this.props.info.name}
+                </div> */}
             </ListGroupItem>
         )
     }
 }
 
-export default Employee
+export default EmployeeItem

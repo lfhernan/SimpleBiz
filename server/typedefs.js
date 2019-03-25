@@ -28,7 +28,6 @@ export default gql`
     register(
       name: String!
       password: String!
-      companyId: String!
       username: String!
       type: String!
     ): User!

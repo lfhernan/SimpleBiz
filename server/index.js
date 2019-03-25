@@ -18,7 +18,8 @@ mongoose.connect('mongodb://localhost:27017/test',{useNewUrlParser: true});
 const server=new ApolloServer({
     typeDefs,resolvers,context: async ({req,res}) =>
     {
-        const token=req.headers.authorization
+        const token=await req.headers.authorization
+        console.log(token)
         try {
             const {user}=await jwt.verify(token,SECRET);
             req.user=user;

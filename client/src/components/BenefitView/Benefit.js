@@ -10,7 +10,6 @@ class Benefit extends Component{
                     <Card>
                         <CardBody>
                             <h3>{this.props.title}</h3>
-                            <CardSubtitle>Card subtitle</CardSubtitle>
                             <CardText>{this.props.benefit}</CardText>
                         </CardBody>
                     </Card>

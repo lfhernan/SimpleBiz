@@ -2,7 +2,6 @@ import React,{Component,Fragment} from 'react';
 import {graphql,compose} from 'react-apollo'
 import loggedIN from './Store/Queries/AuthStatus'
 import logIn from './Store/Mutations/logIn'
-import Test from './test'
 import {BrowserRouter, Route,Switch} from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Home from './Pages/Home'
@@ -28,14 +27,10 @@ class App extends Component
   
   render()
   {
-    const {status} = this.props
-    //console.log(this.props)
     return (
       <BrowserRouter>
         <Fragment>
             <NavBar />
-            <Test />
-            <button onClick={this.props.logIn}>{status+""}</button>
               <Switch>
                   <Route exact path="/" component={Home} />
                   <Route exact path="/SignIn" component={Login} />
