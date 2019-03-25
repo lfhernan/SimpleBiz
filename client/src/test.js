@@ -8,7 +8,7 @@ import logIn from './Store/Mutations/logIn'
 
 const getToken=gql`
     mutation{
-     login(name:"test",password:"test")
+        loginCompany(email:"String!" password: "String!")
     }
 `
 
