@@ -4,7 +4,7 @@ import Title from './Title'
 import Benefit from './Benefit'
 
 const styles = {
-    border: "5px solid red",
+    //border: "5px solid red",
     margin: "0"
 }
 

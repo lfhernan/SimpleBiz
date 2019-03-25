@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { Col } from 'reactstrap';
 
 const styles = {
-    border: "5px solid red",
+    //border: "5px solid red",
     textAlign: "center",
     marginBottom: "15px",
     fontWeight: "bold"   

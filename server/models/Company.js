@@ -1,31 +1,24 @@
 import mongoose from 'mongoose'
 
-export default mongoose.model('User',{
-    name: {
+export default mongoose.model('Company',{
+    companyName:{
         type: String,
         required: true
     },
-    username: {
+    owner: {
         type: String,
         required: true
     },
-    imageurl:{
-        type:String,
-        default: "https://s3.amazonaws.com/vcimages/140914283510706-disruptive-employee.jpg"
+    email: {
+        type: String,
+        required: true
+    },
+    industry: {
+        type: String,
+        required: true
     },
     password: {
         type: String,
         required: true
     },
-    companyId: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true
-    },
-    scheduleId: {
-        type: String,
-    }
 })

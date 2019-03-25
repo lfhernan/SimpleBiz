@@ -1,11 +1,11 @@
 import React,{Component} from 'react'
-import { Container, Row, Col } from 'reactstrap';
-
+import LogInForm from '../components/LogInForm/LogInForm';
 
 class LogIn extends Component{
+
     render(){
         return (
-            <div>LogIn</div>
+            <LogInForm />
         )
     }
 }

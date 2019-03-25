@@ -17,6 +17,24 @@ export default {
             console.log(id)
             return User.findById(id)
         },
+        getCompany: async (_, args, {Company,user}) =>
+        {   
+            if(!user) {
+                throw new Error('You must be logged in to see company info')
+            }
+            
+
+            return Company.findById(user[0])
+        },
+        getEmployees(_,args,{User,user}){
+
+            if(!user || user[2] != 'AuthCompany') {
+                throw new Error('You must be a company in order to retrieve employee info')
+            }
+
+            return User.find({companyId: user[0]})
+        }
+
     },
     Mutation: {
         register: async (_,args,{User}) =>
@@ -50,6 +68,42 @@ export default {
                 })
 
             return token
+        },
+        loginCompany: async (_,{email,password},{Company,SECRET}) =>
+        {
+            const company=await Company.findOne({email: email}).exec()
+
+            if(!company) {
+                throw new Error('no Company found')
+            }
+            
+
+            const valid=await bcrypt.compare(password,company.password)
+
+            console.log(valid)
+
+            if(!valid) {
+                throw new Error('wrong password')
+            }
+
+            const  token=jwt.sign(
+                {
+                    user: [ company.id,company.companyName,"AuthCompany" ]
+                },
+                SECRET,
+                {
+                    expiresIn: '2h'
+                })
+
+            return token
+            
+        },
+        createCompany:async (_,args,{Company}) =>{
+            const company=args
+
+            company.password=await bcrypt.hash(company.password,12)
+            
+            return Company.create(args)
         }
     }
 };
