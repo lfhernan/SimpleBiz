@@ -28,7 +28,6 @@ export default gql`
     register(
       name: String!
       password: String!
-      companyId: String!
       username: String!
       type: String!
     ): User!
@@ -40,5 +39,11 @@ export default gql`
     industry: String!,
     password: String!): Company
     loginCompany(email: String!, password: String!):String!
+    editCompanyEmployee(
+      id: ID!,
+      name:String,
+      type:String,
+      imageurl: String
+      ): User
   }
 `;

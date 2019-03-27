@@ -4,8 +4,8 @@ import Title from './Title'
 import Benefit from './Benefit'
 
 const styles = {
-    //border: "5px solid red",
-    margin: "0"
+    marginTop: '50px',
+    marginBottom: '50px',
 }
 
 class BenefitView extends Component{
@@ -14,16 +14,16 @@ class BenefitView extends Component{
         this.state ={
             benefits: [
                 {
-                    title: 'title1',
-                    benefit: 'text1'
+                    title: 'feature 1',
+                    benefit: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium vol'
                 },
                 {
-                    title: 'title2',
-                    benefit: 'text2'
+                    title: 'feature 2',
+                    benefit: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium vol'
                 },
                 {
-                    title: 'title3',
-                    benefit: 'text3'
+                    title: 'feature 3',
+                    benefit: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium vol'
                 }
             ]
         }
@@ -34,7 +34,7 @@ class BenefitView extends Component{
                 <Title />
                 <Row>
                     {
-                        this.state.benefits.map(x => <Benefit title={x.title} benefit={x.benefit}/>)
+                        this.state.benefits.map((x,key) => <Benefit key={key} title={x.title} benefit={x.benefit}/>)
                     }
                 </Row>
             </Container>

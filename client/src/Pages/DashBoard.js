@@ -1,17 +1,20 @@
 import React,{Component} from 'react'
-import { Container, Row, Col } from 'reactstrap';
 import Essential from '../components/Essential/Essential'
+import getCompanyInfo from '../Queries/GetCompanyInfo'
+import EmployeeList from '../components/EmployeeInfo/EmployeeList'
+import {graphql,compose} from 'react-apollo'
 
 class DashBoard extends Component{
     render(){
         return (
             <div>
                 <Essential />
-                <Essential />
-                <Essential />
+                <EmployeeList />
             </div>
         )
     }
 }
 
-export default DashBoard
+export default compose(
+    graphql(getCompanyInfo,{name: 'getCompanyInfo'})
+)(DashBoard)

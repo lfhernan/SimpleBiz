@@ -1,8 +1,20 @@
 import React,{Component} from 'react'
-import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Button, Form, FormGroup, Label, Input,Card,CardBody } from 'reactstrap';
 import loginCompany from '../../Queries/LoginCompany'
 import {graphql,compose} from 'react-apollo'
+import {withRouter} from "react-router-dom"
+import logIn from '../../Store/Mutations/logIn'
 import {ApolloConsumer} from 'react-apollo'
+
+let myClient;
+
+const styles={
+    width: '300px',
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)",
+}
 
 class LogInForm extends Component{
     
@@ -47,7 +59,7 @@ class LogInForm extends Component{
 
     }
 
-    login= async ()=>{
+    login = async () => {
 
         const {username, password} = this.state
         const token = await this.props.loginCompany({
@@ -58,38 +70,51 @@ class LogInForm extends Component{
         })
         
         if(!token){
-            alert('error')
+            console.log('error')
+            
         }
         else{
-            localStorage.setItem('token',token)
+            console.log(token)
+            localStorage.setItem('token', token.data.loginCompany)
+            myClient.resetStore()
+            this.props.logIn(true)
+            this.props.history.push("/Dashboard")
         }
     }
 
     render(){
         return (
-            <Form>
-                <FormGroup row>
-                    <Label for="username" sm={2}>Username</Label>
-                        <Col sm={10}>
-                            <Input onChange={this.handleChange} type="username" name="username" placeholder="Enter Username" />
-                        </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Label for="password" sm={2}>Password</Label>
-                        <Col sm={10}>
-                            <Input onChange={this.handleChange} type="password" name="password" placeholder="Enter Password" />
-                        </Col>
-                </FormGroup>
-                <FormGroup check row>
-                    <Col sm={{ size: 10, offset: 2 }}>
-                        <Button onClick={this.handleSubmit}>Submit</Button>
-                    </Col>
-                </FormGroup>
-            </Form>
+            <div style={styles}>
+                <Card>
+                    <CardBody>
+                        <h3 style={{textAlign: 'center',paddingBottom: '10px'}}>Login</h3>
+                        <Form>
+                        <ApolloConsumer>{
+                            client =>
+                            {
+                                myClient=client
+                                return true
+                            }
+                        }</ApolloConsumer>
+                        <FormGroup>
+                                    <Input onChange={this.handleChange} type="username" name="username" placeholder="Enter Username" />
+                        </FormGroup>
+                        <FormGroup>
+                                    <Input onChange={this.handleChange} type="password" name="password" placeholder="Enter Password" />
+                        </FormGroup>
+                        <FormGroup>
+                                <Button onClick={this.handleSubmit}>Submit</Button>
+                        </FormGroup>
+                        </Form>
+                </CardBody>
+                 </Card>
+            </div>
         )
     }
 }
 
-export default compose(
+export default withRouter (compose(
     graphql(loginCompany,{name: 'loginCompany'}),
-)(LogInForm)
+    graphql(logIn,{name: "logIn"})
+    
+)(LogInForm))

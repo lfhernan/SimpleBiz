@@ -27,7 +27,7 @@ export default {
             return Company.findById(user[0])
         },
         getEmployees(_,args,{User,user}){
-
+            console.log(user)
             if(!user || user[2] != 'AuthCompany') {
                 throw new Error('You must be a company in order to retrieve employee info')
             }
@@ -37,10 +37,12 @@ export default {
 
     },
     Mutation: {
-        register: async (_,args,{User}) =>
+        register: async (_,args,{User,user}) =>
         {
-            const user=args
-            user.password=await bcrypt.hash(user.password,12)
+            const newUser=args
+            newUser.password=await bcrypt.hash(newUser.password,12)
+            console.log(user)
+            newUser.companyId = await user[0]
 
             return User.create(args)
         },
@@ -104,6 +106,19 @@ export default {
             company.password=await bcrypt.hash(company.password,12)
             
             return Company.create(args)
+        },
+        editCompanyEmployee: async(_,args,{User,user})=>{
+
+            if(!user || user[2] != 'AuthCompany') {
+                throw new Error('You must be a company in order to retrieve employee info')
+            }
+
+            // this may not work Daniel / Marcel
+            const updatedUser =  await User.findOneAndUpdate({id: args.id},{name: args.name})
+
+            return updatedUser
+
+
         }
     }
 };

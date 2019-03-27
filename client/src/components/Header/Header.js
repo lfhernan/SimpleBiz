@@ -20,19 +20,22 @@ const items = [
     src: 'https://www.epichotel.com/images/1700-960/downtown-miami-header-255095f7.jpg',
     altText: 'Slide 1',
     caption: 'This is where your business grows',
-    header: 'Big boys club'
+    header: 'Big boys club',
+    key: 1
   },
   {
     src: 'https://www.epichotel.com/images/1700-960/downtown-miami-header-255095f7.jpg',
     altText: 'Slide 2',
     caption: 'happy and cheerful',
-    header: 'The Good Life'
+    header: 'The Good Life',
+    key: 2
   },
   {
     src: 'https://www.epichotel.com/images/1700-960/downtown-miami-header-255095f7.jpg',
     altText: 'Slide 3',
     caption: 'Instant Results',
-    header: 'Achieve Success Here'
+    header: 'Achieve Success Here',
+    key: 3
   }
 ];
 
