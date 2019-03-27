@@ -14,8 +14,8 @@ class EmployeeList extends Component{
             const {getEmployees} = this.props
             if(!getEmployees.error){
                 Employees = getEmployees.getEmployees.map(
-                    (employee,index)=>{
-                        return <EmployeeItem info={employee} />
+                    (employee)=>{
+                        return <EmployeeItem key={employee.id} info={employee} />
                     }
                 )
             }
