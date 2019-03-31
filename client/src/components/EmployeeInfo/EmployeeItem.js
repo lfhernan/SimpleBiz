@@ -1,11 +1,15 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import { compose,graphql } from 'react-apollo';
 import { Col, Row, ListGroupItem, Button, Modal, ModalHeader, ModalBody, ModalFooter,
-    Form, FormGroup, FormText, Label, Input } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+    Form, FormGroup, FormFeedback, Label, Input } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import editCompanyEmployee from '../../Queries/EditCompanyEmployee';
+import deleteEmployee from '../../Queries/DeleteEmployee';
+import getEmployees from '../../Queries/GetEmployees';
 
 const image = {
-    width: '130px',
+    maxWidth: '130px',
+    maxHeight: '130px',
     borderRadius: '50%',
     margin: '10px'
 }
@@ -15,74 +19,81 @@ class EmployeeItem extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            type: "",
-            imageurl: "",
+            name: null,
+            type: null,
+            imageurl: null,
             schedule: false,
             edit: false,
             remove: false
-        };
-
-        this.toggleSchedule = this.toggleSchedule.bind(this);
-        this.toggleEdit = this.toggleEdit.bind(this);
-        this.toggleRemove = this.toggleRemove.bind(this);
-        this.editEmployee = this.editEmployee.bind(this);
+        }
     }
 
-    toggleSchedule() {
+    toggleSchedule = async () => {
         this.setState(prevState => ({
           schedule: !prevState.schedule
         }));
     }
 
-    toggleEdit() {
+    toggleEdit = async () => {
+        if (this.state.edit) {
+            this.clearFormData();
+        }
         this.setState(prevState => ({
           edit: !prevState.edit
         }));
     }
 
-    toggleRemove() {
+    toggleRemove = async () => {
         this.setState(prevState => ({
           remove: !prevState.remove
         }));
     }
 
-    handleInput = (e) =>{
-        const value = e.target.value
-        const name = e.target.name
-    
-        this.setState({
-          [name]: value 
+    deleteHandler = async () => {
+        this.toggleRemove();
+        const data = await this.props.deleteEmployee({
+            variables: {id: this.props.info.id},
+            refetchQueries: [{query: getEmployees}]
         })
-    }
+        console.log(data);
+        
+    } 
 
-    editEmployee() {
-        let form = this.state
+    editHandler = async () => {
+        let form = {id: this.props.info.id};
+        let accept = true;
+        
+        Object
+        .keys(this.state)
+        .filter(k => k!=='edit' && k!=='schedule' && k!=='remove')
+        .forEach(key => { 
+            if (this.state[key] === '') {
+                accept = false;
+                return;
+            }
+            else if (this.state[key]) {
+                form[key] = this.state[key]
+            }
+        });
 
-        delete form.edit
-        delete form.schedule
-        delete form.remove
-        if(form.name === "" && form.type === "" && form.imageurl) {return}
-        if(form.name === "") {delete form.name};
-        if(form.type === "") {delete form.type};
-        if(form.imageurl === "") {delete form.imageurl};
+        if (accept === false) {
+            return;
+        }
 
-        console.log(form)
-
-        this.setState({
-            name: "",
-            type: "",
-            imageurl: ""
-          })
-
+        const data = await this.props.editCompanyEmployee({
+            variables: form,
+            refetchQueries: [{query: getEmployees}]
+        })
+        this.toggleEdit();
     }
 
     render(){
-
-        const {name, type, imageurl} = this.props.info
+        const {name, type, imageurl} = this.props.info;
+        const formName = this.state.name;
+        const formImageurl = this.state.imageurl;
 
         return (
-            <ListGroupItem>
+            <ListGroupItem action>
                 <Row>
                     <Col md="3" className="text-center">
                         <div>
@@ -126,12 +137,13 @@ class EmployeeItem extends Component{
                                     <Form>
                                         <FormGroup>
                                         <Label for="employeeNameInput">Employee Name</Label>
-                                        <Input type="text" name="name" onChange={this.handleInput} placeholder={name}/>
+                                        <Input type="text" name="name" onBlur={this.validateForm} placeholder={name} {...this.addPropsFeedback(formName)} />
+                                        <FormFeedback>Must enter name and last name</FormFeedback>              
                                         </FormGroup>
 
                                         <FormGroup>
                                         <Label for="employeeTypeInput">Type</Label>
-                                        <Input type="select" name="type" onChange={this.handleInput} placeholder={type}>
+                                        <Input type="select" name="type" onBlur={this.validateForm} defaultValue={type}>
                                             <option>Employee</option>
                                             <option>Manager</option>
                                         </Input>
@@ -139,15 +151,14 @@ class EmployeeItem extends Component{
 
                                         <FormGroup>
                                         <Label for="employeeImageUrl">Image URL</Label>
-                                        <Input type="text" name="imageurl" onChange={this.handleInput} placeholder={imageurl}/>
-                                        <FormText color="muted">
-                                            Link to this employee's photo
-                                        </FormText>
+                                        <Input type="text" name="imageurl" onChange={this.validateForm} placeholder={imageurl} {...this.addPropsFeedback(formImageurl)} />
+                                        <FormFeedback>Invalid url to image</FormFeedback>
+                                        <FormFeedback valid>Found image at url</FormFeedback>
                                         </FormGroup>
                                     </Form>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button color="primary" onClick={this.editEmployee}>Edit</Button>
+                                    <Button color="primary" onClick={this.editHandler}>Edit</Button>
                                     <Button color="secondary" onClick={this.toggleEdit}>Close</Button>
                                 </ModalFooter>
                             </Modal>
@@ -157,10 +168,10 @@ class EmployeeItem extends Component{
                             <Modal isOpen={this.state.remove} toggle={this.toggleRemove} className={this.props.className}>
                                     <ModalHeader toggle={this.toggleRemove}>Fire Employee</ModalHeader>
                                     <ModalBody>
-                                        Are you sure you want to fire this employee?
+                                        Are you sure you want to fire {name}?
                                     </ModalBody>
                                     <ModalFooter>
-                                        <Button color="danger" onClick={this.toggleRemove}>Fire!</Button>
+                                        <Button color="danger" onClick={this.deleteHandler}>Fire!</Button>
                                         <Button color="secondary" onClick={this.toggleRemove}>Close</Button>
                                     </ModalFooter>
                             </Modal>
@@ -169,6 +180,62 @@ class EmployeeItem extends Component{
             </ListGroupItem>
         )
     }
+
+    
+    addPropsFeedback = (formData) => {
+        let output = {};
+        if (formData != null) {
+        output = (formData !== '') ? {valid: true} : {invalid: true}
+        }
+        return output;
+    }
+
+    validateForm = (e) => {
+        const field = e.target.name;
+        const data = e.target.value;
+        let isValid = false;
+
+        if (data === '') {
+            this.setState({ [field]: null })
+            return;
+        }
+        
+        switch (field) {
+        case 'name':
+            const splitted = data.split(' ');
+            isValid = (splitted[0] && splitted[1]);
+            isValid ? this.setState({name: data}) : this.setState({name: ''});
+        break;
+        case 'username':
+            isValid = data.match(/^[0-9a-z]+$/); 
+            isValid ? this.setState({username: data}) : this.setState({username: ''});
+        break;
+        case 'password':
+            isValid = data.match(/^(?=.*\d).{4,20}$/);
+            isValid ? this.setState({password: data}) : this.setState({password: ''});
+        break;
+        case 'imageurl':
+            let imageData = new Image();
+            imageData.onload = () => this.setState({imageurl: data});
+            imageData.onerror = () => this.setState({imageurl: ''});
+            imageData.src = data;
+        break;
+        default:
+            this.setState({ [field]: data });
+        break;
+        }
+    }
+
+    clearFormData = () => {
+        this.setState({
+            name: null,
+            imageurl: null,
+            type: null
+        })
+    }
 }
 
-export default EmployeeItem
+export default compose(
+    graphql(editCompanyEmployee, {name: 'editCompanyEmployee'}),
+    graphql(deleteEmployee, {name: 'deleteEmployee'})
+  )(EmployeeItem)

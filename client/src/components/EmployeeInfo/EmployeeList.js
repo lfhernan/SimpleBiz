@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Col,ListGroup } from 'reactstrap'
+import { Container, Col, ListGroup } from 'reactstrap'
 import getEmployees from '../../Queries/GetEmployees'
 import { compose,graphql } from 'react-apollo'
 import EmployeeItem from './EmployeeItem'
@@ -27,22 +27,25 @@ class EmployeeList extends Component{
     }
     render(){
         return (
-            <Col md="12"> 
-                <div
-                style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    textAlign: 'center'
-                }}
-                >
-                    <h3>Employee Info</h3>
-                    <ListGroup>
-                        {
-                            this.renderEmployees()
-                        }
-                    </ListGroup>
-                </div>
-            </Col>
+    
+                <Col md="12"> 
+                    <div
+                    style={{
+                        marginTop: 10,
+                        marginBottom: 40,
+                        textAlign: 'center'
+                    }}
+                    >
+                    <Container>
+                        <h3>Employee Info</h3>
+                        <ListGroup>
+                            {
+                                this.renderEmployees()
+                            }
+                        </ListGroup>    
+                    </Container>        
+                    </div>
+                </Col>
         )
     }
 }
