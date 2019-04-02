@@ -1,6 +1,7 @@
 import {gql} from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import { argumentsObjectFromField } from 'apollo-utilities';
 
 // Provide resolver functions for your schema fields
 export default {
@@ -107,18 +108,19 @@ export default {
             
             return Company.create(args)
         },
-        editCompanyEmployee: async(_,args,{User,user})=>{
-
+        editCompanyEmployee: async(_,args,{User,user}) =>{
             if(!user || user[2] != 'AuthCompany') {
                 throw new Error('You must be a company in order to retrieve employee info')
             }
-
-            // this may not work Daniel / Marcel
-            const updatedUser =  await User.findOneAndUpdate({id: args.id},{name: args.name})
-
-            return updatedUser
-
-
+            const updatedUser = await User.findOneAndUpdate({_id: args.id}, args);
+            return updatedUser;
+        },
+        deleteEmployee: async(_,args,{User,user}) =>{
+            if(!user || user[2] != 'AuthCompany') {
+                throw new Error('You must be a company in order to retrieve employee info')
+            }
+            const removedUser = await User.findOneAndDelete({_id: args.id})
+            return removedUser;
         }
     }
 };

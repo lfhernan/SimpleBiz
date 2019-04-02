@@ -30,14 +30,16 @@ export default gql`
       password: String!
       username: String!
       type: String!
+      imageurl: String!
     ): User!
     login(name: String!, password: String!): String
     createCompany(
-    companyName:String!,
-    owner: String!,
-    email: String!,
-    industry: String!,
-    password: String!): Company
+      companyName:String!,
+      owner: String!,
+      email: String!,
+      industry: String!,
+      password: String!
+    ): Company
     loginCompany(email: String!, password: String!):String!
     editCompanyEmployee(
       id: ID!,
@@ -45,5 +47,6 @@ export default gql`
       type:String,
       imageurl: String
       ): User
+    deleteEmployee(id: ID!): User
   }
 `;
