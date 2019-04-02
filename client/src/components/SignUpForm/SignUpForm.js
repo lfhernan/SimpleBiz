@@ -1,122 +1,133 @@
-import React,{Component} from 'react'
-import { Col,Card,CardBody, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React from 'react'
+import { withRouter } from "react-router-dom"
+import { graphql, compose } from 'react-apollo'
+import { Button, Form, FormGroup, Label, Card, CardBody } from 'reactstrap'
+import { withFormik, Field } from 'formik'
+import { SignUpSchema } from '../Validator/Validation'
+import { CustomInputComponent } from '../CustomInputs/CustomInput'
 import createCompany from '../../Queries/CreateCompany'
-import {graphql,compose} from 'react-apollo'
-import {withRouter} from "react-router-dom"
-
 
 const styles = {
-    width: '350px',
+    width: '400px',
     position: "absolute",
     left: "50%",
     top: "50%",
     transform: "translate(-50%,-50%)",
 }
 
-class SignUpForm extends Component {
+const SignUpForm = ({ handleSubmit }) => {
+    return (
+        <div style={styles}>
+            <Card>
+                <CardBody>
+                    <h3 style={{ textAlign: 'center', marginBottom: '10px' }}>Sign Up</h3>
+                    <Form>
+                        <FormGroup>
+                            <Label for="companyName">Company Name</Label>
+                            <Field 
+                            name="companyName" 
+                            type="text" 
+                            component={CustomInputComponent} 
+                            placeholder="Enter company name" 
+                        />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="owner">Owner's Name</Label>
+                            <Field 
+                                name="owner" 
+                                type="text" 
+                                component={CustomInputComponent} 
+                                placeholder="Enter owner's name" 
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="industry">Industry</Label>
+                            <Field 
+                                name="industry" 
+                                type="text" 
+                                component={CustomInputComponent} 
+                                placeholder="Enter industry type" 
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="email">Email</Label>
+                            <Field 
+                                name="email" 
+                                type="email" 
+                                component={CustomInputComponent} 
+                                placeholder="Enter email" 
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="password">Password</Label>
+                            <Field 
+                                name="password" 
+                                type="password" 
+                                component={CustomInputComponent} 
+                                placeholder="Enter password" 
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="confirmPassword">Confirm Password</Label>
+                            <Field 
+                                name="confirmPassword" 
+                                type="password" 
+                                component={CustomInputComponent} 
+                                placeholder="Please confirm your password" 
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={handleSubmit}>Submit</Button>
+                        </FormGroup>
+                    </Form>
+                </CardBody>
+            </Card>
+        </div>
+    )
+}
 
-    constructor(props) {
-        super(props)
-        this.state = {
+export const SignUp = withFormik({
+    mapPropsToValues() {
+        return {
             companyName: '',
             owner: '',
             email: '',
             industry: '',
-            password: ''
+            password: '',
+            confirmPassword: ''
         }
-    }
-
-    handleChange = (e) => {
-        const value = e.target.value
-        const name = e.target.name
-
-        this.setState({
-            [name]: value
-        })
-
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault()
-
-        let valid = true
-
-        const keys = Object.keys(this.state)
-
-        for (let i = 0; i < keys.length; i++) {
-            if (this.state[keys[i]].length === 0) {
-                valid = false
-                break;
-            }
-        }
-        if (!valid) {
-            alert('error')
+    },
+    validationSchema: SignUpSchema,
+    handleSubmit(values, { props, setErrors}) {
+        if (values.password !== values.confirmPassword) {
+            setErrors({ confirmPassword: "Passwords do not match" })
         }
         else {
-            this.create()
-        }
+           const create = async () => {
 
-    }
-
-    create = async () => {
-
-        const {companyName, owner, email, industry, password} = this.state
-        const token = await this.props.createCompany({
-            variables:{
-                companyName: companyName,
-                owner: owner,
-                email: email,
-                industry: industry,
-                password: password,
+                const { companyName, owner, email, industry, password } = values
+                const token = await props.createCompany({
+                    variables:{
+                        companyName: companyName,
+                        owner: owner,
+                        email: email,
+                        industry: industry,
+                        password: password,
+                    }
+                })
+                
+                if (!token){
+                    alert("error")
+                } else {
+                    localStorage.setItem('token', token)
+                    props.history.push("/SignIn")
+                }
             }
-        })
-        
-        if(!token){
-            alert('error')
+            create()
         }
-        else{
-            localStorage.setItem('token', token)
-            this.props.history.push("/SignIn")
-        }
-
     }
+})(SignUpForm)
 
-    render() {
-        return (
-            <div style={styles}>
-                <Card>
-                <CardBody>
-                    <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Sign Up</h3>
-                    <Form>
-                    <FormGroup row>
-                            <Input type="name" name="companyName" placeholder="Enter Company Name" onChange={this.handleChange} />
-                    </FormGroup>
-                    <FormGroup row>
-                            <Input type="text" name="owner" placeholder="Enter Name" onChange={this.handleChange} />
-                    </FormGroup>
-                    <FormGroup row>
-                        
-                            <Input type="text" name="industry" placeholder="Enter Industry Type" onChange={this.handleChange} />
-
-                    </FormGroup>
-                    <FormGroup row>
-                        
-                            <Input type="text" name="email" placeholder="Enter Email" onChange={this.handleChange} />
-
-                    </FormGroup>
-                    <FormGroup row>
-                    
-                            <Input type="password" name="password" placeholder="Enter Password" onChange={this.handleChange} />
-                    </FormGroup>
-                    <Button onClick={this.handleSubmit}>Submit</Button>
-                </Form>
-                </CardBody>
-            </Card>
-            </div>
-        );
-    }
-}
-
-export default withRouter (compose(
-    graphql(createCompany,{name: 'createCompany'}),
-)(SignUpForm))
+export default withRouter(compose(
+    graphql(createCompany, { name: 'createCompany' }),
+)(SignUp))

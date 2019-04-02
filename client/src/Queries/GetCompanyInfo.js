@@ -1,12 +1,13 @@
-import {gql} from 'apollo-boost'
+import { gql } from 'apollo-boost'
 
 export default gql`
+{
+    getCompany
     {
-  getCompany{
-    companyName
-    id
-    industry
-    owner
-  }
+        companyName
+        id
+        industry
+        owner
+    }
 }
 `
